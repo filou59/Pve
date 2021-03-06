@@ -13,7 +13,6 @@ echo "----------------------------------------------------------------"
 echo "Filou59 - 2021"
 echo "Proxmox subscription and sources inital setup V$varversion"
 echo "----------------------------------------------------------------"
-exit 0
 
 # -----------------ENVIRONNEMENT VARIABLES----------------------
 # Hostname used to generate sensor name
@@ -76,15 +75,16 @@ apt-get dist-upgrade -y -qq
 #4: Remove Subscription:
 #checking if file is already edited in order to not edit again
 if grep -Ewqi "void" $proxmoxlib; then
-echo "- Subscription Message already removed - Skipping"
+  echo "- Subscription Message already removed - Skipping"
 else
-if [ -d "$pve_log_folder" ]; then
-echo "- Removing No Valid Subscription Message for PVE"
-#sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" $proxmoxlib && systemctl restart pveproxy.service
-echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script && apt --reinstall install proxmox-widget-toolkit
-else 
-echo "- Removing No Valid Subscription Message for PBS"
-sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" $proxmoxlib && systemctl restart proxmox-backup-proxy.service
-fi
+  if [ -d "$pve_log_folder" ]; then
+    echo "- Removing No Valid Subscription Message for PVE"
+    #sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" $proxmoxlib && systemctl restart pveproxy.service
+    echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script && apt --reinstall install proxmox-widget-toolkit && systemctl restart pveproxy.service
+  else 
+    echo "- Removing No Valid Subscription Message for PBS"
+    #sed -Ezi.bak "s/(Ext.Msg.show\(\{\s+title: gettext\('No valid sub)/void\(\{ \/\/\1/g" $proxmoxlib && systemctl restart proxmox-backup-proxy.service
+    echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script && apt --reinstall install proxmox-widget-toolkit && systemctl proxmox-backup-proxy.service
+  fi
 fi
 
