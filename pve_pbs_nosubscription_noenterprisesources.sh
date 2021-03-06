@@ -27,7 +27,7 @@ echo "----------------------------------------------------------------"
 echo "Tonton Jo - 2021"
 echo "Proxmox subscription and sources inital setup V$varversion"
 echo "----------------------------------------------------------------"
-
+exit 0
 # -----------------ENVIRONNEMENT VARIABLES----------------------
 # Hostname used to generate sensor name
 pve_log_folder="/var/log/pve/tasks/"
