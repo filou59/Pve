@@ -4,7 +4,10 @@
 # wget -q -O - https://raw.githubusercontent.com/filou59/Pve/main/Upd_pve_repo_nag.sh | bash
 
 echo "----------------------------------------------------------------"
-
+echo "Tonton Jo - 2021"
+echo "Proxmox subscription and sources inital setup V$varversion"
+echo "----------------------------------------------------------------"
+exit 0
 # Disable Commercial Repo
 sed -i "s/^deb/\#deb/" /etc/apt/sources.list.d/pve-enterprise.list && apt-get update
 
