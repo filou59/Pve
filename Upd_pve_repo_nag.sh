@@ -1,6 +1,6 @@
 #!/bin/bash
 # Utilisation :
-# wget -q -O - https://raw.githubusercontent.com/Tontonjo/proxmox/master/pve_pbs_nosubscription_noenterprisesources.sh | bash
+# wget -q -O - https://raw.githubusercontent.com/filou59/Proxmox/main/Upd_pve_repo_nag.sh?token=ADU54NNOEINVQQYAAQVCLXDAINDJM | bash
 # Disable Commercial Repo
 sed -i "s/^deb/\#deb/" /etc/apt/sources.list.d/pve-enterprise.list && apt-get update
 
